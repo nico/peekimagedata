@@ -66,3 +66,16 @@ def peek_dimensions(data):
     if data[:8] == _PNG_MAGIC:
        return _peek_dimensions_png(data)
     raise ValueError('Unknown image type')
+
+
+def peek_mimetype(data):
+    '''Returns the mimetype for a png or jpeg image stream. Raises ValueError
+    on failure.
+
+    Bases its decision on the first few bytes of data, doesn't check for
+    image validity.'''
+    if data[:2] == _JPEG_SOI:
+       return 'image/jpeg'
+    if data[:8] == _PNG_MAGIC:
+       return 'image/png'
+    raise ValueError('Unknown image type')
